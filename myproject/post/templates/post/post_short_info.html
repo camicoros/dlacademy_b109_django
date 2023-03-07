@@ -9,4 +9,14 @@
     <p>Description: {{ post.description }}</p>
     <img style="width: 100px" src="{{ post.image.url }}" alt="{{ post.title }}">
     <p>Likes: {{ post.get_likes }}</p>
+    {% if request.user.is_authenticated %}
+        <form method="post" action="{% url 'post:like' post.id %}">
+            {% csrf_token %}
+            {% if request.user in post.likes.all %}
+                <button type="submit">👎</button>
+            {% else %}
+                <button type="submit">👍</button>
+            {% endif %}
+        </form>
+    {% endif %}
 </div>

@@ -28,9 +28,9 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post:detail', args=(self.id, ))
 
-    # @property
-    # def get_likes(self):
-    #     return self.likes.count()
+    @property
+    def get_likes(self):
+        return self.likes.count()
 
 
 class Comment(models.Model):

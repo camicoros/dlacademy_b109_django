@@ -1,0 +1,14 @@
+{% extends 'post/base.html' %}
+
+{% block title %}
+    {{ header }}
+{% endblock title %}
+
+
+{% block page %}
+    <h1>{{ header }}</h1>
+    <form action="{% url 'post:delete' post.id %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="delete post">
+    </form>
+{% endblock page %}

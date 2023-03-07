@@ -1,0 +1,15 @@
+{% extends 'post/base.html' %}
+
+{% block title %}
+    {{ header }}
+{% endblock title %}
+
+
+{% block page %}
+    <h1>{{ header }}</h1>
+    <form action="{% url 'post:subscribe' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Subscribe!!">
+    </form>
+{% endblock page %}

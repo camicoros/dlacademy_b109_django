@@ -1,0 +1,12 @@
+<div class="post">
+<!--    <h2>Title: <a href="{% url 'post:detail' post.id %}">{{ post.title }}</a></h2>-->
+    {% if request.path == post.get_absolute_url %}
+        <h2>Title: {{ post.title }}</h2>
+    {% else %}
+        <h2>Title: <a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+    {% endif %}
+    <p>Author: {{ post.author }}</p>
+    <p>Description: {{ post.description }}</p>
+    <img style="width: 100px" src="{{ post.image.url }}" alt="{{ post.title }}">
+    <p>Likes: {{ post.get_likes }}</p>
+</div>

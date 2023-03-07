@@ -1,0 +1,14 @@
+{% extends 'post/base.html' %}
+
+{% block title %}
+    {{ header }}
+{% endblock title %}
+
+
+{% block page %}
+    <h1>{{ header }}</h1>
+    <a href="{% url 'post:index' %}">На главную</a>
+    {% if post %}
+        {% include 'post/post_short_info.html' %}
+    {% endif %}
+{% endblock page %}

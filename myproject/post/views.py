@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import DeleteView
 
@@ -96,31 +97,32 @@ def post_update(request, post_id):
     return HttpResponse(f"Update post id:{post_id}")
 
 
-# class DeletePostView(DeleteView):
-#     model = Post
-#     pk_url_kwarg = "post_id"
-#     template_name = "post/post_delete.html"
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['header'] = f"Delete post #{self.object.id}"
-#         return context
-#
-#     def get_success_url(self):
-#         return redirect('post:index')
-#
-#     @method_decorator(login_required)
-#     def post(self, *args, **kwargs):
-#         object = self.get_object()
-#
-#         if self.request.user == object.author:
-#             super().post(self, *args, **kwargs)
-#         else:
-#             return redirect('post:index')
+class DeletePostView(DeleteView):
+    model = Post
+    pk_url_kwarg = "post_id"
+    template_name = "post/post_delete.html"
+    success_url = reverse_lazy("post:index")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['header'] = f"Delete post #{self.object.id}"
+        return context
+
+    # def get_success_url(self):
+    #     return redirect('post:index')
+
+    @method_decorator(login_required)
+    def post(self, *args, **kwargs):
+        object = self.get_object()
+
+        if self.request.user == object.author:
+            return super().post(*args, **kwargs)
+        else:
+            return redirect('post:index')
 
 
-def post_delete(request, post_id):
-    return HttpResponse(f"Delete post id:{post_id}")
+# def post_delete(request, post_id):
+#     return HttpResponse(f"Delete post id:{post_id}")
 
 
 def post_like(request, post_id):
@@ -130,7 +132,5 @@ def post_like(request, post_id):
             post.likes.remove(request.user)
         else:
             post.likes.add(request.user)
-
-    print(request.META)
 
     return redirect(request.META.get('HTTP_REFERER'), request)

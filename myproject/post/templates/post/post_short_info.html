@@ -19,4 +19,7 @@
             {% endif %}
         </form>
     {% endif %}
+    {% if request.user.is_authenticated and request.user == post.author %}
+        <a href="{% url 'post:delete' post.id %}">X</a>
+    {% endif %}
 </div>

@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Post
+from .models import Post, Comment
 
 
 class SubscribeForm(forms.Form):
@@ -20,3 +20,9 @@ class PostForm(forms.ModelForm):
             raise ValidationError("File is too big!", code='size_error')
 
         return image
+
+
+class CommentPostForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text', ]

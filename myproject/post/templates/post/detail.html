@@ -11,4 +11,24 @@
     {% if post %}
         {% include 'post/post_short_info.html' %}
     {% endif %}
+
+    <div class="comments">
+    {% for comment in post.comment_set.all %}
+        <div class="comment__item">
+            <p>Author: {{comment.author}}</p>
+            <p>Text: {{comment.text}}</p>
+            <p>{{comment.date_pub}}</p>
+            {% if request.user.is_authenticated and request.user == comment.author %}
+                <a href="{% url 'post:delete_comment' comment.id %}">Удалить комментарий</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+
+    <h2>Оставить комментарий:</h2>
+    <form action="{% url 'post:comment' post.id %}" method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input type="submit" value="Comment">
+    </form>
 {% endblock page %}

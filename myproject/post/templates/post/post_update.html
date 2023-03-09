@@ -7,9 +7,9 @@
 
 {% block page %}
     <h1>{{ header }}</h1>
-    <p>{{description}}</p>
-    <form action="{% url 'post:delete' post.id %}" method="post">
+    <form action="{% url 'post:create' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <input type="submit" value="delete post">
+        {{ form.as_p }}
+        <input type="submit" value="Update post">
     </form>
 {% endblock page %}

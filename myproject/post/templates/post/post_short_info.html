@@ -5,7 +5,7 @@
     {% else %}
         <h2>Title: <a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
     {% endif %}
-    <p>Author: {{ post.author }}</p>
+    <p>Author: <a href="{% url 'core:profile' post.author.id %}">{{ post.author }}</a></p>
     <p>Description: {{ post.description }}</p>
     <img style="width: 100px" src="{{ post.image.url }}" alt="{{ post.title }}">
     <p>Likes: {{ post.get_likes }}</p>

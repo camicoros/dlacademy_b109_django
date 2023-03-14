@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ header }}
+{% endblock title %}
+
+{% block page %}
+    <h1>{{ header }}</h1>
+    <h2>User info</h2>
+    <p>Firstname: {{customuser.first_name}}</p>
+    <p>Lastname: {{customuser.last_name}}</p>
+    <p>About: {{customuser.about}}</p>
+    <img style="width: 100px" src="{% if customuser.avatar %}{{ customuser.avatar.url }}{% else %}#{% endif %}" alt="{{ customuser.username }}"/>
+
+    <h2>User posts:</h2>
+    {% for post in customuser.posts.all %}
+        {% include 'post/post_short_info.html' %}
+    {% endfor %}
+{% endblock page %}

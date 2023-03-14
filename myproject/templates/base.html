@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            Instagramik
+        {% endblock title %}
+    </title>
+</head>
+<body class="page">
+    <header>
+        <nav>
+        {% block login %}
+            {% if not user.is_authenticated %}
+                <p><a href="{% url 'core:login' %}">Login</a></p>
+                <p><a href="{% url 'core:signup' %}">Register</a></p>
+            {% else %}
+                <form method="post" action="{% url 'core:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Exit</button>
+                </form>
+            {% endif %}
+        {% endblock login %}
+        </nav>
+    </header>
+    {% block page %}
+
+    {% endblock page %}
+</body>
+</html>

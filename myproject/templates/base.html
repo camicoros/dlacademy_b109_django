@@ -16,6 +16,7 @@
                 <p><a href="{% url 'core:login' %}">Login</a></p>
                 <p><a href="{% url 'core:signup' %}">Register</a></p>
             {% else %}
+                <p><a href="{% url 'core:edit_profile' user.id %}">Update profile</a></p>
                 <form method="post" action="{% url 'core:logout' %}">
                     {% csrf_token %}
                     <button type="submit">Exit</button>

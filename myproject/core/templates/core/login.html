@@ -14,4 +14,6 @@
         {{ form.as_p }}
         <input type="submit" value="Login">
     </form>
+    <h2>Забыли пароль?</h2>
+    <p><a href="{% url 'core:password_reset' %}">Восстановить пароль</a></p>
 {% endblock page %}

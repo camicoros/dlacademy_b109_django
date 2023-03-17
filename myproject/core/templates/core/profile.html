@@ -12,6 +12,17 @@
     <p>About: {{customuser.about}}</p>
     <img style="width: 100px" src="{% if customuser.avatar %}{{ customuser.avatar.url }}{% else %}#{% endif %}" alt="{{ customuser.username }}"/>
 
+    {% if user.is_authenticated and customuser.id != user.id %}
+        <form action="{% url 'core:add_remove_friend' customuser.id %}" method="post">
+            {% csrf_token %}
+            {% if customuser in user.friends.all %}
+                <button type="submit">Удалить из друзей</button>
+            {% else %}
+                <button type="submit">Добавить в друзья</button>
+            {% endif %}
+        </form>
+    {% endif %}
+
     <h2>User posts:</h2>
     {% for post in customuser.posts.all %}
         {% include 'post/post_short_info.html' %}

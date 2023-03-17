@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ header }}
+{% endblock title %}
+
+{% block page %}
+    <h1>{{ header }}</h1>
+    {% if customuser.avatar %}
+        <img style="width: 100px" src="{% if customuser.avatar %}{{ customuser.avatar.url }}{% else %}#{% endif %}" alt="{{ customuser.username }}"/>
+    {% else %}
+        <p>You don't have avatar!</p>
+    {% endif %}
+
+    <h2>Update your info if you wanna :)</h2>
+    <form action="{% url 'core:edit_profile' customuser.id  %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update profile</button>
+    </form>
+
+
+{% endblock page %}

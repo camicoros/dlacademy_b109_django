@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
+
+
+{% block static_files %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'post/css/index.css' %}" type="text/css">
+{% endblock static_files %}
 
 {% block title %}
     {{ header }}
@@ -7,7 +14,12 @@
 
 {% block page %}
     <h1>{{ header }}</h1>
-    {% for post in posts %}
-        {% include 'post/post_short_info.html' %}
-    {% endfor %}
+    <ul class="posts">
+        {% for post in posts %}
+            <li class="posts__item">
+                {% include 'post/post_short_info.html' %}
+            </li>
+        {% endfor %}
+    </ul>
+
 {% endblock page %}

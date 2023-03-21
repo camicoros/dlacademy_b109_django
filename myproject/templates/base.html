@@ -1,7 +1,11 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    {% block static_files %}
+        <link rel="stylesheet" href="{% static 'common/css/index.css' %}" type="text/css">
+    {% endblock static_files %}
     <title>
         {% block title %}
             Instagramik
@@ -9,24 +13,29 @@
     </title>
 </head>
 <body class="page">
-    <header>
-        <nav>
+    <header class="header">
+        <nav class="menu">
         {% block login %}
             {% if not user.is_authenticated %}
-                <p><a href="{% url 'core:login' %}">Login</a></p>
-                <p><a href="{% url 'core:signup' %}">Register</a></p>
+                <p class="menu__item"><a href="{% url 'core:login' %}">Login</a></p>
+                <p class="menu__item"><a href="{% url 'core:signup' %}">Register</a></p>
             {% else %}
-                <p><a href="{% url 'core:edit_profile' user.id %}">Update profile</a></p>
+                <p class="menu__item"><a href="{% url 'core:edit_profile' user.id %}">Update profile</a></p>
                 <form method="post" action="{% url 'core:logout' %}">
                     {% csrf_token %}
-                    <button type="submit">Exit</button>
+                    <button type="submit" class="menu__item">Exit</button>
                 </form>
             {% endif %}
         {% endblock login %}
         </nav>
     </header>
+    <div class="content">
     {% block page %}
 
     {% endblock page %}
+    </div>
+    <footer class="footer">
+
+    </footer>
 </body>
 </html>

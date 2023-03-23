@@ -14,6 +14,7 @@
 
 {% block page %}
     <h1>{{ header }}</h1>
+    {% if posts %}
     <ul class="posts">
         {% for post in posts %}
             <li class="posts__item">
@@ -21,5 +22,8 @@
             </li>
         {% endfor %}
     </ul>
+    {% else %}
+    <h2>Постов нет!</h2>
+    {% endif %}
 
 {% endblock page %}

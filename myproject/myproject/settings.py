@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
-
+    "camicoros.pythonanywhere.com"
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
